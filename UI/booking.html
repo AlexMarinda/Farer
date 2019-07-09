@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title> Way Farer</title>
+
+    <link rel="stylesheet" href="css/way_farer.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="headerr">
+        
+      </div>
+   
+
+     
+        <div class="siderr">
+          <ul  class="sidenav">
+            <li><a class="active"  href="#Booking"><h3>Way Farer</h3> </a></li>
+            <li><a  href="create_trip.html">Create Trip</a></li>
+            <li><a href="view_all_trip.html">View all Trip</a></li>
+            <li><a href="view_specific_trip.html">View Specific Trip</a></li>
+            <li><a  href="view_all_booking.html">View all bookings</a></li>
+            
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html">Logout</a></li>
+          </ul>
+        </div>
+        <div class="menuu">
+       <h1>BOOK A SEAT ON A TRIP</h1>
+        <div clas="book"
+
+          <dl>
+            <dt>ORIGIN</dt>
+            <dd> <select  class="slct" id="orig">
+                <option value="Kigali">Kigali</option>
+                <option value="Rubavu">Rubavu</option>
+                <option value="Huye"=>Huye</option>
+                <option value="Rwamagana">Rwamagana</option>
+                <option value="Nyamata">Nyamata</option>
+                <option value="Muhanga">Muhanga</option>
+              </select></dd>
+            <dt>DESTINATION</dt>
+            <dd> <select  class="slct" id="dest">
+               
+                <option value="Kigali">Kigali</option>
+                <option value="Rubavu">Rubavu</option>
+                <option value="Huye">Huye</option>
+                <option value="Rwamagana">Rwamagana</option>
+                <option value="Nyamata">Nyamata</option>
+                <option value="Muhanga">Muhanga</option>
+              </select ></dd>
+            <dt>DATE</dt>
+            <dd><select  class="slct" id="datee">
+                <option value="1/2/2019">1/2/2019</option>
+                <option value="1/2/2019">1/2/2019</option>
+                <option value="1/2/2019">1/2/2019</option>
+                <option value="1/2/2019">1/2/2019</option>
+                <option value="1/2/2019">1/2/2019</option>
+              </select> <button onclick="addRow()" class="slct">BOOKING</button></dd>
+    
+           
+          </dl>
+        </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <table id="customers">
+            <tr>
+              
+             
+
+              <th>Origin</th>
+              <th>Destination</th>
+              <th>Trip Date</th>
+
+              <th>Action</th>
+            </tr>
+      
+            <tr>
+
+                <td></td>
+                <td></td>
+                <td></td>
+     
+                <td></td>
+            </tr>
+          
+          </table>
+        </div>
+     
+    </div>
+    <footer>
+      Built with ☕ by Alex Marinda
+    </footer>
+
+    <script src="js/way_farer.js"></script>
+  </body>
+</html>
