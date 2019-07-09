@@ -7,7 +7,19 @@ body{
   height: 750px;
 }
 
-.
+.headerr {
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  font-size: 1.5em;
+  background-image: url("../images/ny.jpg");
+
+  padding: 0px;
+  border: none;
+  
+  transition: .2s box-shadow ease-in-out;
+  text-align: center;
+  height: 160px;
+}
 
 footer {
   color: rgb(27, 13, 13);
