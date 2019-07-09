@@ -20,6 +20,111 @@ body{
   text-align: center;
   height: 160px;
 }
+.header1 {
+  color: rgb(255, 255, 255);
+ 
+  font-size: 9;
+  background:grey;
+ 
+  padding: 0px;
+  border: none;
+  transition: .2s box-shadow ease-in-out;
+  text-align: right;
+}
+
+
+ .siderr {
+  float:left;
+  width: 20%;
+  display:inline;
+  background: rgb(193, 191, 194);
+  height: 600px;
+  text-align: center;
+  overflow: hidden ;
+}
+
+.menuu{
+  float:right;
+  width: 80%;
+  display:inline;
+  background-color:white;
+  height: 600px;
+  text-align: center;
+  overflow-x:auto;
+  overflow-y:auto
+}
+.book{
+  
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.inpt {
+  width: 70%;
+  height: 100;
+  padding: 12px 12px;
+
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.slct{
+  width: 70%;
+  height: 200;
+  padding: 12px 12px;
+  font-size: 20px;
+
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.or{
+  color: gray;
+  font-size: 10px;
+}
+
+.slctt{
+  width: 30%;
+  height: 200;
+  padding: 12px 12px;
+  font-size: 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0px;
+  width: 300px;
+  background-color: #141313;
+  height: 600px;
+ 
+  overflow: auto;
+}
+
+li a {
+  display: block;
+  color: rgb(194, 197, 197);
+  padding: 8px 16px;
+  text-decoration: none;
+}
+li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Change the link color on hover */
+li a:hover {
+  background-color: #555;
+  color: white;
+}
+
 
 footer {
   color: rgb(27, 13, 13);
@@ -34,6 +139,28 @@ footer {
   text-align: center;
 }
 
+
+dl {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+dt,
+dd {
+  margin: 0;
+}
+
+dt {
+  padding: 15px 0 5px;
+  color: #AAA;
+  text-transform: uppercase;
+}
+
+dd {
+  padding: 0 0 15px;
+  border-bottom: 1px solid #DDD;
+}
 
 button {
   display: block;
@@ -50,6 +177,29 @@ button {
 
 
 
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
 
 
 h1{
@@ -136,7 +286,11 @@ h1{
 
 
 @media screen and (max-width: 900px) {
-
+  ul.sidenav {
+    width: 100%;
+    
+    
+  }
   .contain {
     width: 100%;
    
@@ -148,8 +302,19 @@ h1{
     padding: 0px;
   }
   
+  ul.sidenav li a {
+    float: left;
+    padding: 15px;
+  }
+  
+  div.content {margin-left: 0;}
 }
 
-
+@media screen and (max-width: 400px) {
+  ul.sidenav li a {
+    text-align: center;
+    float: none;
+  }
+}
 
 
