@@ -1,2 +1,2 @@
-# Farer
-Andela Developer Challenge
+# way-Farer
+WayFarer is a public bus transportation booking service
