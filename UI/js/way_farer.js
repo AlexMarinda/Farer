@@ -12,7 +12,9 @@ function addRow() {
   row.insertCell(0).innerHTML= orig.value;
   row.insertCell(1).innerHTML= dest.value;
   row.insertCell(2).innerHTML= datee.value;
+  
   row.insertCell(3).innerHTML= '<input type="button" value = "Cancel" onClick="Javacsript:deleteRow(this)">';
+  row.insertCell(4).innerHTML= '<a href="details.html"><input type="button" value = "Details" ></a>';
 
 }
 
@@ -23,6 +25,14 @@ function deleteRow(obj) {
   table.deleteRow(index);
   
 }
+function details(obj) {
+    
+   var deatail = document.getElementById("detail");
+  
+  table.deleteRow(index);
+  
+}
+
 
 
 var login_success = false;  /* set this to true if the login was a success */
@@ -35,4 +45,7 @@ else
 {
      window.location = "booking.html";
 }
+
+
+
 
