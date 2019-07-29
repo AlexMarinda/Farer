@@ -12,5 +12,10 @@ const router = express.Router();
 router.post('/signup',Validation.userValidator, UserController.registerUser);
 router.post('/signin', UserController.login);
 
+const router = express.Router();
+
+router.post('/signup',Validation.userValidator, UserController.registerUser);
+
+
 
 export default router;
