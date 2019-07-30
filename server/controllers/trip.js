@@ -55,6 +55,23 @@ static  getAllTrip(req, res) {
     return res.status(200).json({ status: 'success', data: { 'message':'trips not found!'} });
 }
 
+// cancel trip
+
+static  cancelTrip(req, res) {
+    const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
+    if(findTrip)
+
+    findTrip.status = 'unactive';
+       
+  
+         res.status(200).send({ status: 'success', data: 'Trip cancelled successfully'});
+
+        return res.status(200).send({ status: 'success', data: { 
+        'message':'trip not found!'
+     } });
+
+}
+
 
 
 }

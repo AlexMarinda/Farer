@@ -12,6 +12,7 @@ const router = express.Router();
 //router.post('/',verifyToken,isAdmin, Create_trip.trip);
 router.post('/',verifyToken,isAdmin,Validation.createTripValidator,CreateTrip.trip);
 router.get('/',verifyToken, CreateTrip.getAllTrip);
+router.patch('/:trip_id/cancel/',verifyToken,isAdmin, CreateTrip.cancelTrip);
 
 
 
