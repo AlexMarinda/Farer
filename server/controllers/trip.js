@@ -105,7 +105,20 @@ static filterTrips (req, res) {
     return true;
   }
   
-
+  static  activeTrip(req, res) {
+    const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
+    if(findTrip)
+  
+    findTrip.status = 'active';
+       
+  
+         res.status(200).send({ status: 'success', data: 'Trip activety successfully'});
+  
+        return res.status(200).send({ status: 'success', data: { 
+        'message':'trip not found!'
+     } });
+  
+  }
 
 
 
