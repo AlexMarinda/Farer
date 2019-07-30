@@ -15,6 +15,7 @@ router.get('/',verifyToken, CreateTrip.getAllTrip);
 router.patch('/:trip_id/cancel/',verifyToken,isAdmin, CreateTrip.cancelTrip);
 router.get('/:trip_id',verifyToken, CreateTrip.getSpecificTrip);
 router.post('/filter', verifyToken,CreateTrip.filterTrips);
+router.patch('/:trip_id/active/',verifyToken,isAdmin, CreateTrip.activeTrip);
 
 
 
