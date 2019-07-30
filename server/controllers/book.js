@@ -106,6 +106,20 @@ console.log('allBookings', allBookings);
      res.status(200).send({ status: 'success', data: allBookings});
 
 }
+static  numberOfSeat(req, res) {
+    const findBook =   bookings.find(t => t.book_id === parseInt(req.params.book_id));
+    if(findBook)
+
+    findBook.seat_number = req.body.seat_number;
+       
+
+         res.status(200).send({ status: 'success', data: 'seat numbers  added successfully'});
+
+        return res.status(200).send({ status: 'success', data: { 
+        'message':'trip not found!'
+     } });
+
+}
 
 
 
@@ -124,6 +138,8 @@ static  deleteBooking(req, res) {
                'message':'booking not found!'}});
      }
      }
+
+     
 }
 
 export default Booking;
