@@ -13,6 +13,4 @@ router.post('/signup',Validation.userValidator, UserController.registerUser);
 router.post('/signin', UserController.login);
 router.patch('/admin/:user_id/',verifyToken,isAdmin, makeUserAdmin );
 
-
-
 export default router;

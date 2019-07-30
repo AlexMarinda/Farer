@@ -13,8 +13,8 @@ app.use(bodyParser.json());
 const port = process.env.PORT || 5000;
 
 
-app.use(routes);
 
+app.use(routes);
 app.use('*', (req, res) => res.status(404).send({
         status: 404,
     message: 'URL NOT FOUND!',
