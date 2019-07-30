@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './routes';
-
+import swaggerUI from 'swagger-ui-express';
+import docs from '../openapi.json';
 
 import dotenv from 'dotenv';
 
@@ -11,7 +12,7 @@ dotenv.config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const port = process.env.PORT || 5000;
-
+app.use('/documentation/v1/', swaggerUI.serve, swaggerUI.setup(docs));
 
 
 app.use(routes);
