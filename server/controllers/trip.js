@@ -46,6 +46,15 @@ return res.status(201).send({ status: 'success', data: {
 
 }
 
+// get all trip
+
+static  getAllTrip(req, res) {
+    if(trips.length > 0){
+     return  res.status(200).json({ status: 'success', data: trips});
+    }
+    return res.status(200).json({ status: 'success', data: { 'message':'trips not found!'} });
+}
+
 
 
 }
