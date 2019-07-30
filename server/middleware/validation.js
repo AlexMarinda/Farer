@@ -3,10 +3,47 @@ import Joi from '@hapi/joi';
 
  // all validation operation 
  export class Validation {
+
  
 
-  // user attributes validator
+  // trip attributes validator
+  static createTripValidator(req, res, next) {
+    const schema = Joi.object().keys({
+      seating_capacity: Joi.number()
+        .min(0)
+        .required(),
+      bus_license_number: Joi.string()
+        .trim()
+        .min(2)
+        .max(50)
+        .required(),
+      origin: Joi.string()
+        .trim()
+        .min(2)
+        .max(50)
+        .required(),
+      destination: Joi.string()
+        .trim()
+        .min(2)
+        .max(50)
+        .required(),
+      trip_date: Joi.string()
+        .trim()
+        .required(),
+      fare: Joi.number()
+        
+        .min(2)
+        .required(),
+      status: Joi.string()
+       
+        .min(2)
+        .max(50),
+        
+    });
+    checkValidator(req, res, schema, next);
+  }
 
+ // user attributes validator
   static userValidator(req, res, next) {
     const schema = Joi.object().keys({
       email: Joi.string()
