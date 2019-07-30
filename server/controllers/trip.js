@@ -1,4 +1,5 @@
 import trips  from '../model/trip';
+import {findQueryByDestination, findQueryByOrigin} from '../helpers';
 
 
 //import {verifyToken} from '../../helpers';
@@ -83,6 +84,29 @@ static  getSpecificTrip(req, res) {
      } });
 
 }
+//filter trips using origin or destination,both
+static filterTrips (req, res) {
+    const { destination, origin } = req.query;
+    if (trips.length === 0)  return res.status(200).send({ status: 'success', data: { 
+        'message':'trip not found!'
+       } }); 
+    try {
+      const foundDestination = findQueryByDestination(destination);
+      const foundOrigin = findQueryByOrigin(origin);
+      if (foundDestination.length >= 1) return res.status(200).send({ status: 'success', data: foundDestination});                                    
+      if (foundOrigin.length >= 1)  return res.status(200).send({ status: 'success', data: foundOrigin}); 
+                                     return res.status(200).send({ status: 'success', data: "your filter direction not found"});
+                                    
+      // next();
+    // eslint-disable-next-line no-empty
+    } catch (error) {
+      console.log(error);
+    }
+    return true;
+  }
+  
+
+
 
 
 
