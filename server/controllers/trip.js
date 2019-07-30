@@ -1,7 +1,6 @@
 import trips  from '../model/trip';
 import {findQueryByDestination, findQueryByOrigin} from '../helpers';
 
-
 //import {verifyToken} from '../../helpers';
 // trip class
 
@@ -56,6 +55,42 @@ static  getAllTrip(req, res) {
     return res.status(200).json({ status: 'success', data: { 'message':'trips not found!'} });
 }
 
+// specific trip
+
+static  getSpecificTrip(req, res) {
+    const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
+    if(findTrip)
+         return res.status(200).send({ status: 'success', data: findTrip});
+      return res.status(200).send({ status: 'success', data: { 
+      'message':'trip not found!'
+     } });
+
+}
+
+//filter trips using origin or destination,both
+static filterTrips (req, res) {
+  const { destination, origin } = req.query;
+  if (trips.length === 0)  return res.status(200).send({ status: 'success', data: { 
+      'message':'trip not found!'
+     } }); 
+  try {
+    const foundDestination = findQueryByDestination(destination);
+    const foundOrigin = findQueryByOrigin(origin);
+    if (foundDestination.length >= 1) return res.status(200).send({ status: 'success', data: foundDestination});                                    
+    if (foundOrigin.length >= 1)  return res.status(200).send({ status: 'success', data: foundOrigin}); 
+                                   return res.status(200).send({ status: 'success', data: "your filter direction not found"});
+                                  
+    // next();
+  // eslint-disable-next-line no-empty
+  } catch (error) {
+    console.log(error);
+  }
+  return true;
+}
+
+
+
+
 // cancel trip
 
 static  cancelTrip(req, res) {
@@ -73,54 +108,20 @@ static  cancelTrip(req, res) {
 
 }
 
-// specific trip
+static  activeTrip(req, res) {
+  const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
+  if(findTrip)
 
-static  getSpecificTrip(req, res) {
-    const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
-    if(findTrip)
-         return res.status(200).send({ status: 'success', data: findTrip});
+  findTrip.status = 'active';
+     
+
+       res.status(200).send({ status: 'success', data: 'Trip activety successfully'});
+
       return res.status(200).send({ status: 'success', data: { 
       'message':'trip not found!'
-     } });
+   } });
 
 }
-//filter trips using origin or destination,both
-static filterTrips (req, res) {
-    const { destination, origin } = req.query;
-    if (trips.length === 0)  return res.status(200).send({ status: 'success', data: { 
-        'message':'trip not found!'
-       } }); 
-    try {
-      const foundDestination = findQueryByDestination(destination);
-      const foundOrigin = findQueryByOrigin(origin);
-      if (foundDestination.length >= 1) return res.status(200).send({ status: 'success', data: foundDestination});                                    
-      if (foundOrigin.length >= 1)  return res.status(200).send({ status: 'success', data: foundOrigin}); 
-                                     return res.status(200).send({ status: 'success', data: "your filter direction not found"});
-                                    
-      // next();
-    // eslint-disable-next-line no-empty
-    } catch (error) {
-      console.log(error);
-    }
-    return true;
-  }
-  
-  static  activeTrip(req, res) {
-    const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
-    if(findTrip)
-  
-    findTrip.status = 'active';
-       
-  
-         res.status(200).send({ status: 'success', data: 'Trip activety successfully'});
-  
-        return res.status(200).send({ status: 'success', data: { 
-        'message':'trip not found!'
-     } });
-  
-  }
-
-
 
 
 }
