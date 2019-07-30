@@ -3,10 +3,8 @@ import Joi from '@hapi/joi';
 
  // all validation operation 
  export class Validation {
-
  
-
-  // trip attributes validator
+// trip attributes validator
   static createTripValidator(req, res, next) {
     const schema = Joi.object().keys({
       seating_capacity: Joi.number()
@@ -43,8 +41,8 @@ import Joi from '@hapi/joi';
     checkValidator(req, res, schema, next);
   }
 
-  // book a seat  attributes validator
-  static bookSeatValidator(req, res, next) {
+ // book a seat  attributes validator
+   static bookSeatValidator(req, res, next) {
     const schema = Joi.object().keys({
       trip_id: Joi.number()
         .min(0)
@@ -60,8 +58,8 @@ import Joi from '@hapi/joi';
     });
     checkValidator(req, res, schema, next);
   }
+  // user attributes validator
 
- // user attributes validator
   static userValidator(req, res, next) {
     const schema = Joi.object().keys({
       email: Joi.string()

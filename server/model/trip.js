@@ -25,7 +25,7 @@ const trips = [
         "bus_license_number": "RAA203B",
         "seating_capacity": "50",
         "origin": "kigali",
-        "destination": "musanze",
+        "destination": "rwamagana",
         "trip_date": "1/2/2019",
         "fare": "5000",
         "status":"active"
