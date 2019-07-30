@@ -1,5 +1,6 @@
 import JWT from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+
 import trips  from '../model/trip';
 import users from '../model/users';
 

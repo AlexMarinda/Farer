@@ -4,10 +4,7 @@ import Joi from '@hapi/joi';
  // all validation operation 
  export class Validation {
 
-
  
-
-  // user attributes validator
 
   // trip attributes validator
   static createTripValidator(req, res, next) {
@@ -46,7 +43,7 @@ import Joi from '@hapi/joi';
     checkValidator(req, res, schema, next);
   }
 
-
+ // user attributes validator
   static userValidator(req, res, next) {
     const schema = Joi.object().keys({
       email: Joi.string()
