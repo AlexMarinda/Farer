@@ -72,6 +72,18 @@ static  cancelTrip(req, res) {
 
 }
 
+// specific trip
+
+static  getSpecificTrip(req, res) {
+    const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
+    if(findTrip)
+         return res.status(200).send({ status: 'success', data: findTrip});
+      return res.status(200).send({ status: 'success', data: { 
+      'message':'trip not found!'
+     } });
+
+}
+
 
 
 }
