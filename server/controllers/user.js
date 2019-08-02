@@ -19,7 +19,7 @@ for (let i =0; i<users.length;i++){
   
     if(users[i].email===req.body.email )
        
-      return res.status(200).send({ status: 'success', data: "choose another email this was taken" });
+      return res.status(400).send({ status: 'success', data: "choose another email this was taken" });
       
            
         }
@@ -59,7 +59,7 @@ for (let i =0; i<users.length;i++){
            }
         }
 
-    return res.status(401).send({ status: 'success', data: { 
+    return res.status(400).send({ status: 'success', data: { 
 'message':'User not found!'
  } });
 

@@ -52,7 +52,7 @@ static  getAllTrip(req, res) {
     if(trips.length > 0){
      return  res.status(200).json({ status: 'success', data: trips});
     }
-    return res.status(200).json({ status: 'success', data: { 'message':'trips not found!'} });
+    return res.status(404).json({ status: 'success', data: { 'message':'trips not found!'} });
 }
 
 // specific trip
@@ -61,7 +61,7 @@ static  getSpecificTrip(req, res) {
     const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
     if(findTrip)
          return res.status(200).send({ status: 'success', data: findTrip});
-      return res.status(200).send({ status: 'success', data: { 
+      return res.status(404).send({ status: 'error', data: { 
       'message':'trip not found!'
      } });
 
@@ -78,7 +78,7 @@ static filterTrips (req, res) {
     const foundOrigin = findQueryByOrigin(origin);
     if (foundDestination.length >= 1) return res.status(200).send({ status: 'success', data: foundDestination});                                    
     if (foundOrigin.length >= 1)  return res.status(200).send({ status: 'success', data: foundOrigin}); 
-                                   return res.status(200).send({ status: 'success', data: "your filter direction not found"});
+                                   return res.status(404).send({ status: 'error', data: "your filter direction not found"});
                                   
     // next();
   // eslint-disable-next-line no-empty
@@ -102,7 +102,7 @@ static  cancelTrip(req, res) {
   
          res.status(200).send({ status: 'success', data: 'Trip cancelled successfully'});
 
-        return res.status(200).send({ status: 'success', data: { 
+        return res.status(403).send({ status: 'error', data: { 
         'message':'trip not found!'
      } });
 
