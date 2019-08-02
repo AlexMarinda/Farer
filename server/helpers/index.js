@@ -84,7 +84,7 @@ const verifyToken = async (req, res, next) => {
 
      res.status(200).send({ status: 'success', data:  'you make user admin successfully'});
 
-        return res.status(200).send({ status: 'success', data: { 
+        return res.status(401).send({ status: 'success', data: { 
         'message':'trip not found!'
      } });
 
