@@ -1963,26 +1963,7 @@ input, select {
 				padding-top: 44px !important;
 			}
 
-			#titleBar {
-				-moz-backface-visibility: hidden;
-				-webkit-backface-visibility: hidden;
-				-ms-backface-visibility: hidden;
-				backface-visibility: hidden;
-				-moz-transition: -moz-transform 0.5s ease;
-				-webkit-transition: -webkit-transform 0.5s ease;
-				-ms-transition: -ms-transform 0.5s ease;
-				transition: transform 0.5s ease;
-				display: block;
-				height: 44px;
-				left: 0;
-				position: fixed;
-				top: 0;
-				width: 100%;
-				z-index: 10001;
-				background: #272833;
-				box-shadow: 0 0.125em 0.125em 0 rgba(0, 0, 0, 0.125);
-			}
-
+		
 
 
 
@@ -1996,7 +1977,7 @@ input, select {
 				padding: 3.25em 1.5em;
 			}
 
-	
+	}
 
 /* XSmall */
 
