@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint",
     "start": "nodemon --exec babel-node server/index.js",
-    "start:dev": "nodemon --exec babel-node server/index.js",
+    "build": "mkdir dist && babel server -s -d dist",
     "test": "nyc --reporter=html --reporter=text mocha  server/**/*.js   --require @babel/register --exit"
   },
   "repository": {
@@ -39,6 +39,7 @@
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/register": "^7.5.5",
     "@babel/runtime": "^7.5.5",
+    "babel-cli": "^6.26.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.0.5",
