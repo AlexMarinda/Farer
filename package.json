@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint",
     "start": "nodemon --exec babel-node server/index.js",
-    "start:dev": "nodemon --exec babel-node server/index.js",
+    "start:devDependencies": "nodemon --exec babel-node server/index.js",
     "test": "nyc --reporter=html --reporter=text mocha  server/**/*.js   --require @babel/register --exit"
   },
   "repository": {
