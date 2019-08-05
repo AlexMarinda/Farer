@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint",
     "dev": "nodemon --exec babel-node server/index.js",
-    "start": "babel-node server/index.js",SickTo
+    "start": "babel-node server/index.js",
     "test": "nyc --reporter=html --reporter=text mocha  server/**/*.js   --require @babel/register --exit"
   },
   "repository": {
