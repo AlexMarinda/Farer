@@ -44,7 +44,15 @@ input, select {
 		background: white;
 	}
 	.md{
+		background-image: url("../images/bus3.jpg");
+		background-repeat:   no-repeat;
+		background-position: center center; 
+		background-size:     cover; 
+		color: white;
+	}
+	.md1{
 		background: white;
+
 	}
 #content input {
   margin-bottom: 20px;

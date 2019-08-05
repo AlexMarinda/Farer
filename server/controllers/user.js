@@ -19,14 +19,14 @@ for (let i =0; i<users.length;i++){
   
     if(users[i].email===req.body.email )
        
-      return res.status(400).send({ status: 'success', data: "choose another email this was taken" });
+      return res.status(400).send({ status: 400, message: "choose another email this was taken" });
       
            
         }
 const token = generateToken(users.email);
 users.push(newUser);
 
-return res.status(201).send({ status: 'success', data: { 
+return res.status(201).send({status:201, message: 'success', data: { 
 token,
 email:req.body.email,
 password:encryptPass(req.body.password),
@@ -48,7 +48,7 @@ for (let i =0; i<users.length;i++){
 
     if((users[i].email===email) && (checkPassword(users[i].password,password))){
         const token = generateToken(users[i]);
-        return res.status(200).send({ status: 'success', data: { 
+        return res.status(200).send({status:200, message: 'success', data: { 
             token,
             user_id:users.length + 1,
             email:users[i].email,
@@ -59,9 +59,9 @@ for (let i =0; i<users.length;i++){
            }
         }
 
-    return res.status(400).send({ status: 'success', data: { 
-'message':'User not found!'
- } });
+    return res.status(404).send({ status: 404, 
+message:'User not found!'
+  });
 
 
 }

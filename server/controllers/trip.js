@@ -25,7 +25,7 @@ for (let i =0; i<trips.length;i++){
   if(trips[i].trip_date===req.body.trip_date && trips[i].origin===req.body.origin
      && trips[i].destination===req.body.destination && trips[i].bus_license_number===req.body.bus_license_number)
      
-    return res.status(200).send({ status: 'success', data: "this trip was created" });
+    return res.status(200).send({ status: 200, message: "this trip was created" });
     
          
       }
@@ -33,7 +33,7 @@ for (let i =0; i<trips.length;i++){
 trips.push(newTrip);
 
 // trip response
-return res.status(201).send({ status: 'success', data: { 
+return res.status(201).send({ status: 201, message: 'success', data: { 
     trip_id:req.body.trip_id,
     seating_capacity:req.body.seating_capacity,
     bus_license_number:req.body.bus_license_number,
@@ -50,9 +50,9 @@ return res.status(201).send({ status: 'success', data: {
 
 static  getAllTrip(req, res) {
     if(trips.length > 0){
-     return  res.status(200).json({ status: 'success', data: trips});
+     return  res.status(200).json({ status:200, message:'success', data: trips});
     }
-    return res.status(404).json({ status: 'success', data: { 'message':'trips not found!'} });
+    return res.status(404).json({ status: 404, message:'trips not found!' });
 }
 
 // specific trip
@@ -61,24 +61,23 @@ static  getSpecificTrip(req, res) {
     const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
     if(findTrip)
          return res.status(200).send({ status: 'success', data: findTrip});
-      return res.status(404).send({ status: 'error', data: { 
-      'message':'trip not found!'
-     } });
+      return res.status(404).send({ status: 404, message: 'trip not found!'
+      });
 
 }
 
 //filter trips using origin or destination,both
 static filterTrips (req, res) {
   const { destination, origin } = req.query;
-  if (trips.length === 0)  return res.status(200).send({ status: 'success', data: { 
-      'message':'trip not found!'
-     } }); 
+  if (trips.length === 0)  return res.status(200).send({ status: 200,
+      message:'trip not found!'
+     }); 
   try {
     const foundDestination = findQueryByDestination(destination);
     const foundOrigin = findQueryByOrigin(origin);
-    if (foundDestination.length >= 1) return res.status(200).send({ status: 'success', data: foundDestination});                                    
-    if (foundOrigin.length >= 1)  return res.status(200).send({ status: 'success', data: foundOrigin}); 
-                                   return res.status(404).send({ status: 'error', data: "your filter direction not found"});
+    if (foundDestination.length >= 1) return res.status(200).send({ status:200,message: 'success', data: foundDestination});                                    
+    if (foundOrigin.length >= 1)  return res.status(200).send({ status:200,message: 'success', data: foundOrigin}); 
+                                   return res.status(404).send({ status: 404, message: "your filter direction not found"});
                                   
     // next();
   // eslint-disable-next-line no-empty
@@ -100,11 +99,11 @@ static  cancelTrip(req, res) {
     findTrip.status = 'unactive';
        
   
-         res.status(200).send({ status: 'success', data: 'Trip cancelled successfully'});
+         res.status(200).send({ status:200,message:  'Trip cancelled successfully'});
 
-        return res.status(403).send({ status: 'error', data: { 
-        'message':'trip not found!'
-     } });
+        return res.status(404).send({ status: 404, 
+        message:'trip not found!'
+      });
 
 }
 
@@ -115,9 +114,9 @@ static  activeTrip(req, res) {
   findTrip.status = 'active';
      
 
-       res.status(200).send({ status: 'success', data: 'Trip activety successfully'});
+       res.status(200).send({ status: 200, message: 'Trip activety successfully'});
 
-      return res.status(200).send({ status: 'success', data: { 
+      return res.status(404).send({ status: 404, data: { 
       'message':'trip not found!'
    } });
 

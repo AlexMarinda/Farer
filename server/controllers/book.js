@@ -15,22 +15,12 @@ static  bookSeat(req, res) {
   
           if(trips[i].status==="unactive" )
              
-            return res.status(200).send({ status: 'success', data: "this trip was canceled" });
+            return res.status(400).send({ status: 400, message: "this trip was canceled" });
             
                  
               }
      
-              const findTrip =   trips.find(t => t.trip_id === parseInt(req.body.trip_id));
-              const bookedSeat= parseInt(req.body.seat_number);
-              const availableSeat= parseInt(findTrip.seat_number);
-             
-         
-              if(findTrip)
-              if(findTrip.seat_number<=0 || bookedSeat>availableSeat)
-              return res.status(200).send({ status: 'success', data: 'no available seat or check available seat'});
-               
-              findTrip.seat_number = parseInt(availableSeat-bookedSeat);
-         
+
 
 const newBook = {
      book_id:bookings.length + 1,
@@ -57,7 +47,7 @@ for (let i =0; i<trips.length; i++){
 
 }
 // booked response
-return res.status(201).send({ status: 'success', data: { 
+return res.status(201).send({ status: 201, message: 'success to booking a seat', data: { 
      booking_id:newBook.book_id , 
      seat_number:newBook.seat_number,
      bus_license_number:foundTrip.bus_license_number,
@@ -99,11 +89,9 @@ for(let i=0;i<bookings.length;i++){
 
 console.log('allBookings', allBookings);
     if(!allBookings){
-        return res.status(200).send({ status: 'success', data: { 
-        'message':'bookings not found!'
-     } });
+        return res.status(404).send({ status: 404, message:'bookings not found!' });
 }
-     res.status(200).send({ status: 'success', data: allBookings});
+     res.status(200).send({ status: 200,message:'success ', data: allBookings});
 
 }
 static  numberOfSeat(req, res) {
@@ -113,11 +101,10 @@ static  numberOfSeat(req, res) {
     findBook.seat_number = req.body.seat_number;
        
 
-         res.status(200).send({ status: 'success', data: 'seat numbers  added successfully'});
+         res.status(200).send({ status: 200, message: 'seat numbers  added successfully'});
 
-        return res.status(200).send({ status: 'success', data: { 
-        'message':'trip not found!'
-     } });
+        return res.status(404).send({ status: 404, message:'trip not found!'
+      });
 
 }
 
@@ -131,11 +118,10 @@ static  deleteBooking(req, res) {
        // const c_trip=trip.indexOf(findTrip);
        bookings.splice(findBook,1);
   
-        return res.status(200).send({ status: 'success', data: 'Booking deleted successfully'});
+        return res.status(200).send({ status: 200, message: 'Booking deleted successfully'});
      } 
      else {
-          return res.status(200).send({ status: 'success', data: { 
-               'message':'booking not found!'}});
+          return res.status(404).send({ status: 404,  message:'booking not found!'});
      }
      }
 
