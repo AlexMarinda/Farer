@@ -2,6 +2,7 @@ import users from '../model/users';
 import trips from '../model/trip';
 import {findTripById, findUserById} from '../helpers';
 import bookings  from '../model/book';
+import uuid from 'uuid';
 
 
 // all bookings operation class
@@ -20,13 +21,14 @@ static  bookSeat(req, res) {
                  
               }
      
+const getUser = jwt.decode(req.headers.authorization);
+
 
 
 const newBook = {
-     book_id:bookings.length + 1,
+     book_id:uuid.v4(),
      seat_number:1,
-     trip_id:req.body.trip_id,
-     user_id: req.body.user_id,
+     user_id:getUser.user_id,
      created_on:req.body.created_on
 
 };
@@ -52,9 +54,10 @@ return res.status(201).send({ status: 201, message: 'success to booking a seat',
      seat_number:newBook.seat_number,
      bus_license_number:foundTrip.bus_license_number,
      trip_date: foundTrip.trip_date,
-     first_name:foundUser.first_name,
-     last_name:foundUser.last_name,
-     user_email:foundUser.email
+     first_name:getUser.first_name,
+     last_name:getUser.last_name,
+     user_email:getUser.email,
+     user_id:getUser.user_id
  } });
 
 }
@@ -91,7 +94,7 @@ console.log('allBookings', allBookings);
     if(!allBookings){
         return res.status(404).send({ status: 404, message:'bookings not found!' });
 }
-     res.status(200).send({ status: 200,message:'success ', data: allBookings});
+     res.status(200).send({ status: 200,message:'success to view bookings', data: allBookings});
 
 }
 static  numberOfSeat(req, res) {
