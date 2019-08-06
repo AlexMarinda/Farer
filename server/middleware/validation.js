@@ -42,6 +42,7 @@ import Joi from '@hapi/joi';
   }
 
  // book a seat  attributes validator
+
  static bookSeatValidator(req, res, next) {
   const schema = Joi.object().keys({
     trip_id: Joi.number()
@@ -50,6 +51,7 @@ import Joi from '@hapi/joi';
     user_id: Joi.number()
       .min(0)
       .required(),
+
 
       created_on: Joi.string()
       .trim()

@@ -51,7 +51,9 @@ for (let i =0; i<users.length;i++){
 
     if((users[i].email===email) && (checkPassword(users[i].password,password))){
         const token = generateToken(users[i]);
+
         return res.status(200).send({status:200, message: 'user successful signin', data: { 
+
             token,
             user_id:users[i].user_id,
             email:users[i].email,
