@@ -21,7 +21,7 @@ for (let i =0; i<users.length;i++){
   
     if(users[i].email===req.body.email )
        
-      return res.status(400).send({ status: 400, message: "choose another email this was taken" });
+      return res.status(400).send({ status: 400, message: "User not created " });
       
            
         }
@@ -51,7 +51,7 @@ for (let i =0; i<users.length;i++){
 
     if((users[i].email===email) && (checkPassword(users[i].password,password))){
         const token = generateToken(users[i]);
-        return res.status(200).send({status:200, message: 'success signin', data: { 
+        return res.status(200).send({status:200, message: 'user successful signin', data: { 
             token,
             user_id:users[i].user_id,
             email:users[i].email,

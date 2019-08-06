@@ -112,14 +112,12 @@ static  activeTrip(req, res) {
   const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
   if(findTrip)
 
-  findTrip.status = 'active';
+  findTrip.status = "active";
      
 
        res.status(200).send({ status: 200, message: 'Trip activety successfully'});
 
-      return res.status(404).send({ status: 404, data: { 
-      'message':'trip not found!'
-   } });
+      return res.status(404).send({ status: 404,  message:'trip not found!'});
 
 }
 

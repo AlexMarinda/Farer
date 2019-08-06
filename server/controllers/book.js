@@ -1,4 +1,5 @@
 import users from '../model/users';
+import JWT from 'jsonwebtoken';
 import trips from '../model/trip';
 import {findTripById, findUserById} from '../helpers';
 import bookings  from '../model/book';
@@ -12,33 +13,33 @@ class Booking {
 // book a seat
 
 static  bookSeat(req, res) {
-     for (let i =0; i<trips.length;i++){
-  
-          if(trips[i].status==="unactive" )
-             
-            return res.status(400).send({ status: 400, message: "this trip was canceled" });
-            
-                 
-              }
-     
-const getUser = jwt.decode(req.headers.authorization);
 
+     
+const getUser = JWT.decode(req.headers.authorization);
+
+       
 
 
 const newBook = {
      book_id:uuid.v4(),
      seat_number:1,
-     user_id:getUser.user_id,
+     trip_id:req.body.trip_id,
+     user_id: req.body.user_id,
      created_on:req.body.created_on
 
 };
+const findTrip =   trips.find(t => t.trip_id === parseInt(req.body.trip_id));
+
+     if(findTrip.status==="unactive" )
+        
+       return res.status(400).send({ status: 400, message: "this trip was canceled" });
 
 bookings.push(newBook);  
 let foundUser =null;
 let foundTrip =null;
 for (let i =0; i<users.length; i++){
      if(users[i].user_id===newBook.user_id){
-          foundUser = users[i];
+          foundUser  = users[i];
      }
 
 }
@@ -54,10 +55,9 @@ return res.status(201).send({ status: 201, message: 'success to booking a seat',
      seat_number:newBook.seat_number,
      bus_license_number:foundTrip.bus_license_number,
      trip_date: foundTrip.trip_date,
-     first_name:getUser.first_name,
-     last_name:getUser.last_name,
-     user_email:getUser.email,
-     user_id:getUser.user_id
+     first_name:foundUser.first_name,
+     last_name:foundUser.last_name,
+     user_email:foundUser.email
  } });
 
 }

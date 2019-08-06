@@ -5,8 +5,9 @@
       "description" : "WayFarer is a public bus transportation booking service.",
       "version" : "1.0"
     },
-    "servers" : [ 
-    {
+    "servers" : [ {
+      "url" : "https://mucyo-property-pro-lite.herokuapp.com/"
+    }, {
       "url" : "http://localhost:5000"
     } ],
     "tags" : [ {
