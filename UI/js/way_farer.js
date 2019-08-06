@@ -13,7 +13,7 @@ function addRow() {
   row.insertCell(1).innerHTML= dest.value;
   row.insertCell(2).innerHTML= datee.value;
   
-  row.insertCell(3).innerHTML= '<input type="button" value = "Cancel" onClick="Javacsript:deleteRow(this)">';
+  row.insertCell(3).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
   row.insertCell(4).innerHTML= '<a href="details.html"><input type="button" value = "Details" ></a>';
 
 }
