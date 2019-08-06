@@ -6,7 +6,7 @@
       "version" : "1.0"
     },
     "servers" : [ {
-      "url" : "https://mucyo-property-pro-lite.herokuapp.com/"
+      "url" : "https://marinda-way-farer.herokuapp.com/"
     }, {
       "url" : "http://localhost:5000"
     } ],
