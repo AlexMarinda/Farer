@@ -1,5 +1,6 @@
 import {generateToken,encryptPass, checkPassword} from './../helpers';
-import users from '../model/users'
+import users from '../model/users';
+import uuid from 'uuid';
 
 
 //class contain all user operation
@@ -9,11 +10,12 @@ class UserController {
 static  registerUser(req, res) {
 
 const newUser = {
-user_id:users.length + 1,
+user_id:uuid.v4(),
 email:req.body.email,
 password:encryptPass(req.body.password),
 first_name: req.body.first_name,
-last_name: req.body.last_name
+last_name: req.body.last_name,
+is_admin:false
 };
 for (let i =0; i<users.length;i++){
   
@@ -26,12 +28,13 @@ for (let i =0; i<users.length;i++){
 const token = generateToken(users.email);
 users.push(newUser);
 
-return res.status(201).send({status:201, message: 'success', data: { 
+return res.status(201).send({status:201, message: 'success signup', data: { 
 token,
 email:req.body.email,
-password:encryptPass(req.body.password),
+user_id:newUser.user_id,
 first_name: req.body.first_name,
-last_name: req.body.last_name
+last_name: req.body.last_name,
+is_admin:newUser.is_admin
  } });
 
 }
@@ -48,13 +51,13 @@ for (let i =0; i<users.length;i++){
 
     if((users[i].email===email) && (checkPassword(users[i].password,password))){
         const token = generateToken(users[i]);
-        return res.status(200).send({status:200, message: 'success', data: { 
+        return res.status(200).send({status:200, message: 'success signin', data: { 
             token,
-            user_id:users.length + 1,
+            user_id:users[i].user_id,
             email:users[i].email,
-            password:encryptPass(req.body.password),
             first_name: users[i].first_name,
-            last_name: users[i].last_name
+            last_name: users[i].last_name,
+            is_admin:users[i].is_admin
              } });
            }
         }
