@@ -17,12 +17,12 @@ const isAdmin = async (req, res, next) => {
         }
       });
 
-      return res.status(401).send({ status: 'success', data: { 'message':'Unauthorized access'} }); 
+      return res.status(401).send({ status: 401, message:'Unauthorized access'}); 
     
     } 
     
     catch (error) {
-      return res.status(403).send({ status: 403, error });
+      return res.status(403).send({ status: 403, message:'Failed to authenticate token' });
     }
 
     return true;

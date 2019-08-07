@@ -42,20 +42,20 @@ import Joi from '@hapi/joi';
   }
 
  // book a seat  attributes validator
-   static bookSeatValidator(req, res, next) {
-    const schema = Joi.object().keys({
-      trip_id: Joi.number()
-        .min(0)
-        .required(),
 
-  
-        created_on: Joi.string()
-        .trim()
-        .required(),
+ static bookSeatValidator(req, res, next) {
+  const schema = Joi.object().keys({
+    trip_id: Joi.number()
+      .min(0)
+      .required(),
+    user_id: Joi.string()
+      .min(0)
+      .required(),
 
-    });
-    checkValidator(req, res, schema, next);
-  }
+
+  });
+  checkValidator(req, res, schema, next);
+}
   // user attributes validator
 
   static userValidator(req, res, next) {
@@ -99,7 +99,7 @@ export const checkValidator = (req, res, schema, next) => {
     errArr.forEach(err => {
       errors.push(err.message.split('"').join(''));
     });
-    return res.status(400).json({ status: 'error', data: { 'message':errors} });
+    return res.status(400).json({ status: 400, message:errors});
  
   }
   return next();
