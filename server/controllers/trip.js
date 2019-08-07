@@ -51,7 +51,7 @@ return res.status(201).send({ status: 201, message: 'success', data: {
 
 static  getAllTrip(req, res) {
     if(trips.length > 0){
-     return  res.status(200).json({ status:200, message:'success to get trips', data: trips});
+     return  res.status(200).json({ status:200, message:'Trip successful created', data: trips});
     }
     return res.status(404).json({ status: 404, message:'trips not found!' });
 }
@@ -112,14 +112,12 @@ static  activeTrip(req, res) {
   const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
   if(findTrip)
 
-  findTrip.status = 'active';
+  findTrip.status = "active";
      
 
        res.status(200).send({ status: 200, message: 'Trip activety successfully'});
 
-      return res.status(404).send({ status: 404, data: { 
-      'message':'trip not found!'
-   } });
+      return res.status(404).send({ status: 404,  message:'trip not found!'});
 
 }
 
