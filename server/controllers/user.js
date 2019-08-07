@@ -21,14 +21,14 @@ for (let i =0; i<users.length;i++){
   
     if(users[i].email===req.body.email )
        
-      return res.status(400).send({ status: 400, message: "User not created " });
+      return res.status(400).send({ status: 400, message: "User arleady created  " });
       
            
         }
 const token = generateToken(users.email);
 users.push(newUser);
 
-return res.status(201).send({status:201, message: 'success signup', data: { 
+return res.status(201).send({status:201, message: 'User successful created', data: { 
 token,
 email:req.body.email,
 user_id:newUser.user_id,

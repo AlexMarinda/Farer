@@ -21,14 +21,14 @@ const verifyToken = async (req, res, next) => {
   try {
      const token = req.headers.authorization.split(' ')[1] || req.body.token;
   
-      if (!token) return res.status(400).send({ status: 400,error: 'No token provided' });
+      if (!token) return res.status(400).send({ status: 400,message: 'No token provided' });
     const decodedToken = await JWT.verify(token, process.env.JWT_SECRET,{ expiresIn: '24h' });
     
     if (!decodedToken) return res.status(401).send({ status: 401, message: 'Failed to authenticate token' });
     return next();
     
   } catch (error) {
-    return res.status(403).send({ status: 403, message:'Application try to access to propeties not belong to an app'});
+    return res.status(403).send({ status: 403, message:'No token provided'});
   }
 };
 

@@ -51,7 +51,7 @@ return res.status(201).send({ status: 201, message: 'success', data: {
 
 static  getAllTrip(req, res) {
     if(trips.length > 0){
-     return  res.status(200).json({ status:200, message:'success to get trips', data: trips});
+     return  res.status(200).json({ status:200, message:'Trip successful created', data: trips});
     }
     return res.status(404).json({ status: 404, message:'trips not found!' });
 }
