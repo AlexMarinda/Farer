@@ -1,6 +1,6 @@
 import {generateToken,encryptPass, checkPassword} from './../helpers';
 import users from '../model/users';
-import uuid from 'uuid';
+//import uuid from 'uuid';
 
 
 //class contain all user operation
@@ -10,7 +10,7 @@ class UserController {
 static  registerUser(req, res) {
 
 const newUser = {
-user_id:uuid.v4(),
+user_id:users.length + 1,
 email:req.body.email,
 password:encryptPass(req.body.password),
 first_name: req.body.first_name,

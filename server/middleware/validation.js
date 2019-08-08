@@ -48,7 +48,7 @@ import Joi from '@hapi/joi';
     trip_id: Joi.number()
       .min(0)
       .required(),
-    user_id: Joi.string()
+    user_id: Joi.number()
       .min(0)
       .required(),
 

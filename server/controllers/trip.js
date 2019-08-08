@@ -1,6 +1,6 @@
 import trips  from '../model/trip';
 import {findQueryByDestination, findQueryByOrigin} from '../helpers';
-import uuid from 'uuid';
+//mport uuid from 'uuid';
 
 //import {verifyToken} from '../../helpers';
 // trip class
@@ -11,14 +11,14 @@ class CreateTrip {
 
 static  trip(req, res) {
 const newTrip = {
-trip_id:uuid.v4(),
-seating_capacity:req.body.seating_capacity,
-bus_license_number:req.body.bus_license_number,
-origin: req.body.origin,
-destination: req.body.destination,
-trip_date: req.body.trip_date,
-fare: req.body.farer,
-status:"active"
+  trip_id:trips.length + 1,
+  seating_capacity:req.body.seating_capacity,
+  bus_license_number:req.body.bus_license_number,
+  origin: req.body.origin,
+  destination: req.body.destination,
+  trip_date: req.body.trip_date,
+  fare: req.body.farer,
+  status:"active"
 
 };
 for (let i =0; i<trips.length;i++){
@@ -61,7 +61,7 @@ static  getAllTrip(req, res) {
 static  getSpecificTrip(req, res) {
     const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
     if(findTrip)
-         return res.status(200).send({ status: 'success to get specific trip', data: findTrip});
+         return res.status(200).send({ status:200,message:'success to get specific trip' , data: findTrip});
       return res.status(404).send({ status: 404, message: 'trip not found!'
       });
 
