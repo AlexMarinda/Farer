@@ -3,7 +3,7 @@ import JWT from 'jsonwebtoken';
 import trips from '../model/trip';
 import {findTripById, findUserById} from '../helpers';
 import bookings  from '../model/book';
-import uuid from 'uuid';
+//import uuid from 'uuid';
 import moment from 'moment';
 
 
@@ -17,15 +17,16 @@ static  bookSeat(req, res) {
 
      
 
-const getUser = JWT.decode(req.headers.authorization);
+//const getUser = JWT.decode(req.headers.authorization);
 
        
 
 
 const newBook = {
-     book_id:uuid.v4(),
+     book_id:bookings.length + 1,
      seat_number:1,
-     user_id:getUser.user_id,
+     trip_id:req.body.trip_id,
+     user_id: req.body.user_id,
      created_on:moment().format()
 
 };
@@ -56,10 +57,10 @@ return res.status(201).send({ status: 201, message: 'Booking a seat successful '
      seat_number:newBook.seat_number,
      bus_license_number:foundTrip.bus_license_number,
      trip_date: foundTrip.trip_date,
-     first_name:users[i].first_name,
-     last_name:users[i].last_name,
-     user_email:users[i].email,
-     user_id:users[i].user_id
+     first_name:foundUser.first_name,
+     last_name:foundUser.last_name,
+     user_email:foundUser.email,
+     created_on:newBook.created_on
  } });
 
 }
@@ -118,17 +119,18 @@ static  numberOfSeat(req, res) {
 // delete booking
 
 static  deleteBooking(req, res) {
-    const findBook =   bookings.find(t => t.book_id === parseInt(req.params.book_id));
-    if(findBook){
-       // const c_trip=trip.indexOf(findTrip);
-       bookings.splice(findBook,1);
-  
-        return res.status(200).send({ status: 200, message: 'Booking deleted successfully'});
-     } 
-     else {
-          return res.status(404).send({ status: 404,  message:'booking not found!'});
-     }
-     }
+     const findBook =   bookings.find(t => t.book_id === parseInt(req.params.book_id));
+     if(findBook){
+        // const c_trip=trip.indexOf(findTrip);
+        bookings.splice(findBook,1);
+   
+         return res.status(200).send({ status: 'success', data: 'Trip cancelled successfully'});
+      } 
+      else {
+           return res.status(200).send({ status: 'success', data: { 
+                'message':'booking not found!'}});
+      }
+      }
 
      
 }
