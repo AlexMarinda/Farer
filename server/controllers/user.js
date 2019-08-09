@@ -21,7 +21,10 @@ for (let i =0; i<users.length;i++){
   
     if(users[i].email===req.body.email )
        
+
       return res.status(400).send({ status: 400, message: "User arleady created  " });
+
+
       
            
         }
