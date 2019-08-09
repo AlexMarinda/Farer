@@ -83,7 +83,7 @@ const verifyToken = async (req, res, next) => {
     findUser .is_admin = req.body.is_admin;
        
 
-     res.status(200).send({ status: 200, message:  'you make user admin successfully'});
+     res.status(200).send({ status: 200, message:  'you make user admin successfully',data:findUser });
 
         return res.status(404).send({ status: 404, message:'user not found!' });
 

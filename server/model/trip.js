@@ -18,7 +18,7 @@ const trips = [
         "destination": "butare",
         "trip_date": "1/2/2019",
         "fare": "5000",
-        "status":"unactive"
+        "status":"inactive"
     },
     {
         "trip_id": 3,
@@ -28,7 +28,7 @@ const trips = [
         "destination": "rwamagana",
         "trip_date": "1/2/2019",
         "fare": "5000",
-        "status":"active"
+        "status":"inactive"
     }
 ];
 
