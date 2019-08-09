@@ -126,11 +126,11 @@ static  deleteBooking(req, res) {
         // const c_trip=trip.indexOf(findTrip);
         bookings.splice(findBook,1);
    
-         return res.status(200).send({ status: 'success', data: 'Trip cancelled successfully'});
+         return res.status(204).send({ status: 204, data: 'Trip cancelled successfully'});
       } 
       else {
-           return res.status(200).send({ status: 'success', data: { 
-                'message':'booking not found!'}});
+           return res.status(403).send({ status: 403, 
+                message:'booking not found!'});
       }
       }
 
