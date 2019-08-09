@@ -26,7 +26,7 @@ for (let i =0; i<trips.length;i++){
   if(trips[i].trip_date===req.body.trip_date && trips[i].origin===req.body.origin
      && trips[i].destination===req.body.destination && trips[i].bus_license_number===req.body.bus_license_number)
      
-    return res.status(200).send({ status: 200, message: "this trip was created" });
+    return res.status(403).send({ status: 403, message: "this trip arleady created" });
     
          
       }
@@ -34,7 +34,7 @@ for (let i =0; i<trips.length;i++){
 trips.push(newTrip);
 
 // trip response
-return res.status(201).send({ status: 201, message: 'success', data: { 
+return res.status(201).send({ status: 201, message: 'successful display trip', data: { 
     trip_id:req.body.trip_id,
     seating_capacity:req.body.seating_capacity,
     bus_license_number:req.body.bus_license_number,

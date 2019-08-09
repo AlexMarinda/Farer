@@ -20,8 +20,9 @@ const verifyToken = async (req, res, next) => {
  
   try {
      const token = req.headers.authorization.split(' ')[1] || req.body.token;
-  
+
       if (!token) return res.status(400).send({ status: 400,message: 'No token provided' });
+
     const decodedToken = await JWT.verify(token, process.env.JWT_SECRET,{ expiresIn: '24h' });
     
     if (!decodedToken) return res.status(401).send({ status: 401, message: 'Failed to authenticate token' });
@@ -82,7 +83,7 @@ const verifyToken = async (req, res, next) => {
     findUser .is_admin = req.body.is_admin;
        
 
-     res.status(200).send({ status: 200, message:  'you make user admin successfully'});
+     res.status(200).send({ status: 200, message:  'you make user admin successfully',data:findUser });
 
         return res.status(404).send({ status: 404, message:'user not found!' });
 
