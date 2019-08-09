@@ -43,12 +43,14 @@ for (let i =0; i<users.length; i++){
      if(users[i].user_id===newBook.user_id){
           foundUser  = users[i];
      }
+     
 
 }
 for (let i =0; i<trips.length; i++){
      if(trips[i].trip_id===newBook.trip_id){
           foundTrip = trips[i];
      }
+     
 
 }
 // booked response
@@ -124,11 +126,11 @@ static  deleteBooking(req, res) {
         // const c_trip=trip.indexOf(findTrip);
         bookings.splice(findBook,1);
    
-         return res.status(204).send({ status: 204, data: 'Trip cancelled successfully'});
+         return res.status(200).send({ status: 'success', data: 'Trip cancelled successfully'});
       } 
       else {
-           return res.status(404).send({ status: 404, 
-                message:'booking not found!'});
+           return res.status(200).send({ status: 'success', data: { 
+                'message':'booking not found!'}});
       }
       }
 

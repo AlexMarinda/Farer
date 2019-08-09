@@ -18,7 +18,7 @@ const bookings = [
         "book_id": 3,
         "seat_number":1,
         "trip_id":3,
-        "user_id":2
+        "user_id":1
     }
 ];
 
