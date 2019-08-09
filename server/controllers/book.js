@@ -125,7 +125,7 @@ static  deleteBooking(req, res) {
         // const c_trip=trip.indexOf(findTrip);
         bookings.splice(findBook,1);
    
-         return res.status(200).send({ status: 200, message: 'Trip cancelled successfully'});
+         return res.status(200).send({ status: 200, message: ' successfully delete booking'});
       } 
       else {
            return res.status(403).send({ status: 403, 
