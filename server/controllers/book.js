@@ -111,8 +111,7 @@ static  numberOfSeat(req, res) {
 
          res.status(200).send({ status: 200, message: 'seat numbers  added successfully'});
 
-        return res.status(404).send({ status: 404, message:'trip not found!'
-      });
+        return res.status(404).send({ status: 404, message:'trip not found!'});
 
 }
 
@@ -126,7 +125,7 @@ static  deleteBooking(req, res) {
         // const c_trip=trip.indexOf(findTrip);
         bookings.splice(findBook,1);
    
-         return res.status(204).send({ status: 204, data: 'Trip cancelled successfully'});
+         return res.status(204).send({ status: 204, message: 'Trip cancelled successfully'});
       } 
       else {
            return res.status(403).send({ status: 403, 
