@@ -53,7 +53,7 @@ describe('ALL TRIPS /', () => {
         });
 
 
-       /* it('it should get specific trip ', done => {
+        it('it should get specific trip ', done => {
             chai.request(app)
             .get('/api/v1/trips/1')
             .set('content-type', 'application/json')
@@ -67,7 +67,7 @@ describe('ALL TRIPS /', () => {
               done()
             })
         });
-      */
+     
       
           });
 
