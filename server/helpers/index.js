@@ -89,7 +89,7 @@ const verifyToken = async (req, res, next) => {
 
      res.status(200).send({ status: 200, data:  findUser});
 
-        return res.status(400).send({ status: 400, error: ' trip must be provided'});
+        return res.status(400).send({ status: 400, error: ' user not found'});
 
 }
 
