@@ -32,7 +32,7 @@ for (let i =0; i<trip.length;i++){
   if(trip[i].trip_date===req.body.trip_date && trip[i].origin===req.body.origin
      && trip[i].destination===req.body.destination && trip[i].bus_license_number===req.body.bus_license_number)
      
-    return res.status(403).json({ status: 403, error:"trip was provided" });
+    return res.status(400).json({ status: 400, error:"trip must be created" });
     
          
      }
@@ -49,6 +49,7 @@ if (rowCount > 0) {
    return res.status(201).json({ status: 201, data:addedTrip });
 }
  return res.status(404).json({ status: 404, error:'trips not found!' });
+ 
 }
 
 // get all trip
