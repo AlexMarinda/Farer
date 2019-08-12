@@ -28,7 +28,7 @@ if (firstError) {
   return response(res, 500, 'Oops! unexpected things happened into server', true);
 }
 if(firstResult.rowCount>0){
-  return response(res, 409, 'choose another email this was taken!', true);
+  return response(res, 400, 'email must be provided!', true);
 
 }
 
@@ -42,7 +42,7 @@ const [creatededUser] = result.rows;
 const token = generateToken(creatededUser);
 users.push(newUser);
 delete creatededUser.password;
-return response(res, 201,  {token,creatededUser});
+return response(res, 200,  {token,...creatededUser});
 
 }
 
