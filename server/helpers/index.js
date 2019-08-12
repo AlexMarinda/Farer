@@ -87,11 +87,9 @@ const verifyToken = async (req, res, next) => {
     findUser .is_admin = req.body.is_admin;
        
 
-     res.status(200).send({ status: 'success', data:  'you make user admin successfully'});
+     res.status(200).send({ status: 'success', data:  findUser});
 
-        return res.status(200).send({ status: 'success', data: { 
-        'message':'trip not found!'
-     } });
+        return res.status(400).send({ status: 400, error: ' trip must be provided'});
 
 }
 
@@ -100,7 +98,7 @@ const invalidDataMessage=(res, result) =>{
   for (let index = 0; index < result.error.details.length; index += 1) {
     errors.push(result.error.details[index].message.split('"').join(' '));
   }
-  return res.status(422).send({ status: 422, Error: errors });
+  return res.status(400).send({ status: 400, Error: errors });
 }
 
 

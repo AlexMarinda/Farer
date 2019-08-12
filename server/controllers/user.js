@@ -9,6 +9,7 @@ dotenv.config();
 const { response } = Respond;
 
 
+
 //class contain all user operation
 class UserController {
     
@@ -24,7 +25,6 @@ last_name: req.body.last_name
 const { error: firstError, response: firstResult } = await DbHelper.findOne('users', 'email', newUser.email);
 
 if (firstError) {
-  
   return response(res, 500, 'Oops! unexpected things happened into server', true);
 }
 if(firstResult.rowCount>0){
@@ -42,7 +42,7 @@ const [creatededUser] = result.rows;
 const token = generateToken(creatededUser);
 users.push(newUser);
 delete creatededUser.password;
-return response(res, 200,  {token,...creatededUser});
+return response(res, 201,  {token,creatededUser});
 
 }
 
