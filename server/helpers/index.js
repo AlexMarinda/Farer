@@ -87,7 +87,7 @@ const verifyToken = async (req, res, next) => {
     findUser .is_admin = req.body.is_admin;
        
 
-     res.status(200).send({ status: 'success', data:  findUser});
+     res.status(200).send({ status: 200, data:  findUser});
 
         return res.status(400).send({ status: 400, error: ' trip must be provided'});
 
