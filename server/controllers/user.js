@@ -1,44 +1,48 @@
-import {generateToken,encryptPass, checkPassword} from './../helpers';
+import {generateToken,encryptPass, checkPassword} from './../helpers/index';
 import users from '../model/users';
-//import uuid from 'uuid';
+import DbHelper from './../helpers/DbHelper';
+import Respond from '../helpers/responseHandle';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const { response } = Respond;
+
 
 
 //class contain all user operation
 class UserController {
     
 // new user 
-static  registerUser(req, res) {
+static   async registerUser (req, res) {
 
 const newUser = {
-user_id:users.length + 1,
 email:req.body.email,
 password:encryptPass(req.body.password),
 first_name: req.body.first_name,
-last_name: req.body.last_name,
-is_admin:false
+last_name: req.body.last_name
 };
-for (let i =0; i<users.length;i++){
-  
-    if(users[i].email===req.body.email )
-       
+const { error: firstError, response: firstResult } = await DbHelper.findOne('users', 'email', newUser.email);
 
-      return res.status(400).send({ status: 400, message: "User arleady created  " });
+if (firstError) {
+  return response(res, 500, 'Oops! unexpected things happened into server', true);
+}
+if(firstResult.rowCount>0){
+  return response(res, 400, 'email must be provided!', true);
 
+}
 
-      
-           
-        }
-const token = generateToken(users.email);
+const { error, response: result } = await DbHelper.insert('users', newUser);
+if (error) {
+ 
+  return response(res, 400, error, true);
+}
+const [creatededUser] = result.rows;
+
+const token = generateToken(creatededUser);
 users.push(newUser);
-
-return res.status(201).send({status:201, message: 'User successful created', data: { 
-token,
-email:req.body.email,
-user_id:newUser.user_id,
-first_name: req.body.first_name,
-last_name: req.body.last_name,
-is_admin:newUser.is_admin
- } });
+delete creatededUser.password;
+return response(res, 201,  {token,creatededUser});
 
 }
 
