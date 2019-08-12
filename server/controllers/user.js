@@ -48,32 +48,39 @@ return response(res, 201,  {token,creatededUser});
 
 
 // user signin function
-static  login(req, res) {
+static async login(req, res) {
 
 
 const {email, password}=req.body;
+const { error, response: result } = await DbHelper.findOne('users', 'email', email);
+
+if (error) {
+  return response(res, 500, 'Oops! unexpected things happened into server', true);
+}
+
+const { rows, rowCount } = result;
 
 
-for (let i =0; i<users.length;i++){
+if (rowCount > 0) {
+  // compare password
+  const [currentUser] = rows;
+  if (checkPassword(currentUser.password,password)) {
+    const token = generateToken(currentUser);
+    delete currentUser.password;
+    return res.status(200).json({
+      status: 200,
+      data: {
+        token,currentUser
+      }
+    });
+  }
+}
 
-    if((users[i].email===email) && (checkPassword(users[i].password,password))){
-        const token = generateToken(users[i]);
 
-        return res.status(200).send({status:200, message: 'user successful signin', data: { 
 
-            token,
-            user_id:users[i].user_id,
-            email:users[i].email,
-            first_name: users[i].first_name,
-            last_name: users[i].last_name,
-            is_admin:users[i].is_admin
-             } });
-           }
-        }
+    return res.status(404).send({ status: 404, error:'User not found!'
 
-    return res.status(404).send({ status: 404, 
-message:'User not found!'
-  });
+ });
 
 
 }
