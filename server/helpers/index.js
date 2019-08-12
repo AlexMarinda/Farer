@@ -2,6 +2,9 @@ import JWT from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import trips  from '../model/trip';
 import users from '../model/users';
+import bookings from '../model/book';
+
+
 
 
 // Generate Token
@@ -10,17 +13,22 @@ const generateToken = user => {
   const token = JWT.sign(user,process.env.JWT_SECRET);
   return token;
 };
+
+
+
+const jwtVerifiy = (token) => {
+  const decodedToken = JWT.decode(token,  process.env.JWT_SECRET,{ expiresIn: '24h'});
+  return decodedToken;
+}
+
 // check token
 
 const verifyToken = async (req, res, next) => {
-  
- 
   try {
      const token = req.headers.authorization.split(' ')[1] || req.body.token;
-  
       if (!token) return res.status(400).send({ status: 400,message: 'No token provided' });
     const decodedToken = await JWT.verify(token, process.env.JWT_SECRET,{ expiresIn: '24h' });
-    
+        req.user = decodedToken;
     if (!decodedToken) return res.status(401).send({ status: 401, message: 'Failed to authenticate token' });
     return next();
     
@@ -79,10 +87,20 @@ const verifyToken = async (req, res, next) => {
     findUser .is_admin = req.body.is_admin;
        
 
-     res.status(200).send({ status: 200, message:  'you make user admin successfully'});
+     res.status(200).send({ status: 'success', data:  'you make user admin successfully'});
 
-        return res.status(404).send({ status: 404, message:'user not found!' });
+        return res.status(200).send({ status: 'success', data: { 
+        'message':'trip not found!'
+     } });
 
+}
+
+const invalidDataMessage=(res, result) =>{
+  const errors = [];
+  for (let index = 0; index < result.error.details.length; index += 1) {
+    errors.push(result.error.details[index].message.split('"').join(' '));
+  }
+  return res.status(422).send({ status: 422, Error: errors });
 }
 
 
@@ -94,6 +112,6 @@ const verifyToken = async (req, res, next) => {
 
 
 export { 
-  verifyToken, generateToken,encryptPass, checkPassword,findQueryByDestination,
-  findQueryByOrigin, findTripById, findUserById,makeUserAdmin
+  verifyToken, generateToken,encryptPass, checkPassword,findQueryByDestination,jwtVerifiy,
+  findQueryByOrigin, findTripById, findUserById,makeUserAdmin,invalidDataMessage
 };
