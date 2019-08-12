@@ -77,7 +77,9 @@ if (rowCount > 0) {
 }
 
 
-    return res.status(400).send({ status: 400, error:'User not found!'
+
+    return res.status(404).send({ status: 404, error:'User not found!'
+
  });
 
 
