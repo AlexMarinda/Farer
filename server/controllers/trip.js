@@ -1,6 +1,8 @@
-import trips  from '../model/trip';
-import {findQueryByDestination, findQueryByOrigin} from '../helpers';
-//mport uuid from 'uuid';
+
+import {findQueryByDestination, findQueryByOrigin} from '../helpers/index';
+import DbHelper from './../helpers/DbHelper';
+import Respond from '../helpers/responseHandle';
+const { response } = Respond;
 
 //import {verifyToken} from '../../helpers';
 // trip class
@@ -9,42 +11,44 @@ class CreateTrip {
     
 // trip created
 
-static  trip(req, res) {
+
+static  async trip(req, res) {
 const newTrip = {
-  trip_id:trips.length + 1,
-  seating_capacity:req.body.seating_capacity,
-  bus_license_number:req.body.bus_license_number,
-  origin: req.body.origin,
-  destination: req.body.destination,
-  trip_date: req.body.trip_date,
-  fare: req.body.farer,
-  status:"active"
+seating_capacity:req.body.seating_capacity,
+bus_license_number:req.body.bus_license_number,
+origin: req.body.origin,
+destination: req.body.destination,
+trip_date: req.body.trip_date,
+fare: req.body.fare,
+status:"active"
 
 };
-for (let i =0; i<trips.length;i++){
-  
-  if(trips[i].trip_date===req.body.trip_date && trips[i].origin===req.body.origin
-     && trips[i].destination===req.body.destination && trips[i].bus_license_number===req.body.bus_license_number)
+
+ const { error, response: result } = await DbHelper.queryAll('trips');
+ const { rows: trips } = result;
+ const trip = result.rows;
+
+for (let i =0; i<trip.length;i++){
+  if(trip[i].trip_date===req.body.trip_date && trip[i].origin===req.body.origin
+     && trip[i].destination===req.body.destination && trip[i].bus_license_number===req.body.bus_license_number)
      
-    return res.status(403).send({ status: 403, message: "this trip arleady created" });
+    return res.status(403).json({ status: 403, error:"trip was provided" });
     
          
-      }
+     }
 
-trips.push(newTrip);
 
-// trip response
-return res.status(201).send({ status: 201, message: 'successful display trip', data: { 
-    trip_id:req.body.trip_id,
-    seating_capacity:req.body.seating_capacity,
-    bus_license_number:req.body.bus_license_number,
-    origin: req.body.origin,
-    destination: req.body.destination,
-    trip_date: req.body.trip_date,
-    fare: req.body.farer,
-    status:"active"
- } });
+const { error: errors, response: resp } = await DbHelper.insert('trips', newTrip);
+if (errors) {
 
+  return res.status(500).json({ status: 500, error:'Oops! unexpected things happened into server' });
+}
+const { rows, rowCount } = resp;
+if (rowCount > 0) {
+  const [addedTrip] = rows;
+   return res.status(201).json({ status: 201, data:addedTrip });
+}
+ return res.status(404).json({ status: 404, error:'trips not found!' });
 }
 
 // get all trip

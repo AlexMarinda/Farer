@@ -10,7 +10,7 @@
     "test": "nyc --reporter=html --reporter=text mocha --require babel-register --timeout 100000 server/test/*.js --exit",
     "coverage": "nyc --reporter=lcov npm run test",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "migrate": "babel-node server/database/db_init.js"
+    //"migrate": "babel-node server/database/db_init.js"
   },
   "repository": {
     "type": "git",
