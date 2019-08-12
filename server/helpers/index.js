@@ -6,11 +6,8 @@ import users from '../model/users';
 
 // Generate Token
 
-const generateToken = (user) => {
-  const token = JWT.sign({
-    user[0],
-  },
-  process.env.JWT_SECRET);
+const generateToken = user => {
+  const token = JWT.sign(user,process.env.JWT_SECRET);
   return token;
 };
 // check token
