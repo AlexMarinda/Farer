@@ -94,15 +94,27 @@ class Booking {
     res.status(200).send({ status: 200, message: 'success to view bookings', data: allBookings });
   }
 
-  static numberOfSeat(req, res) {
-    const findBook = bookings.find(t => t.book_id === parseInt(req.params.book_id));
-    if (findBook) { findBook.seat_number = req.body.seat_number; }
-
-
-    res.status(200).send({ status: 200, message: 'seat numbers  added successfully' });
-
-    return res.status(404).send({ status: 404, message: 'trip not found!' });
-  }
+  static async numberOfSeat(req, res) {
+     const { book_id } = req.params;
+     // retrieve property first
+     const { response: books } = await  DbHelper.findOne('bookings', 'book_id ', book_id );
+     // check if we got anything
+     const { rows, rowCount } = books;
+     if (rowCount > 0) {
+       const [book] = rows;
+       if (req.user.user_id === book.user_id) {
+         const payload = { seat_number: req.body.seat_number };
+         const { response: result } = await  DbHelper.update('bookings', payload, 'book_id',book_id);
+         const { rows: items, rowCount: counts } = result;
+         if (counts > 0) {
+           const [item] = items;
+           return response(res, 200, 'seat numbers  added successfully');
+         }
+       }
+       return response(res,403, 'You are allowed to add seat number on your booking only!' ,true);
+     }
+     return response(res, 404, 'No booking found', true);
+   }
 
 
   // delete booking
@@ -125,10 +137,14 @@ class Booking {
         }
         return response(res, 500, 'Oops! unexpected things happened into server', true);
       }
-      return response(res, 403, { message: 'You are allowed to delete your booking only!' }, true);
+      return response(res, 403, 'You are allowed to delete your booking only!' , true);
     }
     return response(res, 404, 'no booking found!', true);
   }
+
+
+
+
 }
 
 export default Booking;
