@@ -105,7 +105,7 @@ static async queryAll(tablename) {
   static buildUpdate(query, data, whereClause, condition) {
     const allData = [];
     Object.keys(data).forEach(key => {
-      callData.push(`${key}='${data[key]}'`);
+      allData.push(`${key}='${data[key]}'`);
     });
     return {
       sql: `${query} ${allData.join(', ')} WHERE ${whereClause}=${condition} RETURNING *`

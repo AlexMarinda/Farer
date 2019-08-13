@@ -117,21 +117,29 @@ static filterTrips (req, res) {
 
 
 // cancel trip
-
-static  cancelTrip(req, res) {
-    const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
-    if(findTrip)
-
-    findTrip.status = 'unactive';
-       
+static async cancelTrip(req, res) {
+  const { trip_id } = req.params;
   
-         res.status(200).send({ status:200,message:  'Trip cancelled successfully'});
+  const { response: trips } = await DbHelper.findOne('trips', 'trip_id', trip_id);
+  
+  const { rows, rowCount } = trips;
+ 
+  if (rowCount > 0) {
+      const payload = { status:'inactive' };
+      const { response: result } = await DbHelper.update('trips', payload,'trip_id',trip_id );
+      const { rows: items, rowCount: counts } = result;
+      if (counts > 0) {
+        const [item] = items;
+        
+        return res.status(200).send({status: 200, data:item});
+      }
 
-        return res.status(404).send({ status: 404, 
-        message:'trip not found!'
-      });
-
+  return res.status(404).send({status: 404, error: 'trip not found!'});
+    }
 }
+
+
+
 
 static  activeTrip(req, res) {
   const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
