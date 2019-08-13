@@ -3,6 +3,13 @@ import bcrypt from 'bcrypt';
 import trips  from '../model/trip';
 import users from '../model/users';
 import bookings from '../model/book';
+import DbHelper from './DbHelper';
+import Respond from './responseHandle';
+
+
+const { response } = Respond;
+
+
 
 
 
@@ -80,18 +87,26 @@ const verifyToken = async (req, res, next) => {
    return foundTrip;
    }
 
-   const  makeUserAdmin =(req, res) =>{
-    const findUser =   users.find(t => t.user_id === parseInt(req.params.user_id));
-    if(findUser )
-
-    findUser .is_admin = req.body.is_admin;
-       
-
-     res.status(200).send({ status: 200, data:  findUser});
-
-        return res.status(400).send({ status: 400, error: ' user not found'});
-
-}
+   const  makeUserAdmin =async (req, res) =>{
+    const { user_id } = req.params;
+    
+    const { response: users } = await DbHelper.findOne('users', 'user_id', user_id);
+    
+    const { rows, rowCount } = users;
+   
+    if (rowCount > 0) {
+        const payload = { is_admin:true };
+        const { response: result } = await DbHelper.update('users', payload,'user_id',user_id );
+        const { rows: items, rowCount: counts } = result;
+        if (counts > 0) {
+          const [item] = items;
+          delete item.password;
+          return response(res, 200, item);
+        }
+  
+    return res.status(404).send({status: 404, error: 'user not found!'});
+      }
+  }
 
 const invalidDataMessage=(res, result) =>{
   const errors = [];
