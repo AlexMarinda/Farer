@@ -54,11 +54,22 @@ if (rowCount > 0) {
 
 // get all trip
 
-static  getAllTrip(req, res) {
-    if(trips.length > 0){
-     return  res.status(200).json({ status:200, message:'Trip successful created', data: trips});
+static async getAllTrip(req, res) {
+  const { error, response: result } = await DbHelper.queryAll('trips');
+  
+  if (error) {
+   
+    return res.status(404).json({ status: 404, error:'Oops! unexpected things happened into server'});
+  }
+  const { rows, rowCount } = result;
+    if(rowCount > 0){
+      if (rowCount === 1) {
+        const [findTrip] = rows;
+        return  res.status(200).json({ status: 200, data: findTrip});
+      }
+      return  res.status(200).json({ status: 200, data: rows}); 
     }
-    return res.status(404).json({ status: 404, message:'trips not found!' });
+    return res.status(404).json({ status: 404, error:'trips not found!' });
 }
 
 // specific trip
