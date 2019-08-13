@@ -48,7 +48,7 @@ if (rowCount > 0) {
   const [addedTrip] = rows;
    return res.status(201).json({ status: 201, data:addedTrip });
 }
- return res.status(404).json({ status: 404, error:'trips not found!' });
+ return res.status(400).json({ status: 400, error:'trips not found!' });
  
 }
 
@@ -74,12 +74,21 @@ static async getAllTrip(req, res) {
 
 // specific trip
 
-static  getSpecificTrip(req, res) {
-    const findTrip =   trips.find(t => t.trip_id === parseInt(req.params.trip_id));
-    if(findTrip)
-         return res.status(200).send({ status:200,message:'success to get specific trip' , data: findTrip});
-      return res.status(404).send({ status: 404, message: 'trip not found!'
-      });
+static async getSpecificTrip(req, res) {
+  const { trip_id } = req.params;
+  const { error, response: result } = await DbHelper.findOne('trips', 'trip_id',trip_id);
+
+  if (error) {
+    return res.status(500).json({ status: 500, error:'Oops! unexpected things happened into server'});
+  }
+
+  const { rows, rowCount } = result;
+  if (rowCount > 0) {
+    const [findTrip] = rows; 
+    return res.status(200).send({ status: 200, data: findTrip});
+  }
+   
+  return res.status(404).send({ status: 404, error:'trip not found!'});
 
 }
 
