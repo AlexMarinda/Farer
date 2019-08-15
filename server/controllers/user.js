@@ -24,11 +24,9 @@ last_name: req.body.last_name
 };
 const { error: firstError, response: firstResult } = await DbHelper.findOne('users', 'email', newUser.email);
 
-if (firstError) {
-  return response(res, 500, 'Oops! unexpected things happened into server', true);
-}
+
 if(firstResult.rowCount>0){
-  return response(res, 400, 'email must be provided!', true);
+  return response(res, 409, 'email must be provided!', true);
 
 }
 
@@ -54,9 +52,7 @@ static async login(req, res) {
 const {email, password}=req.body;
 const { error, response: result } = await DbHelper.findOne('users', 'email', email);
 
-if (error) {
-  return response(res, 500, 'Oops! unexpected things happened into server', true);
-}
+
 
 const { rows, rowCount } = result;
 
