@@ -80,7 +80,7 @@ return response(res, 400, 'no trip found', true);
       allBookings.push(booking);
     }
 
-    console.log('allBookings', allBookings);
+
     if (!allBookings) {
       return res.status(404).send({ status: 404, message: 'bookings not found!' });
     }
