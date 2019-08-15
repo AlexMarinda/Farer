@@ -1,11 +1,10 @@
 import JWT from 'jsonwebtoken';
 import moment from 'moment';
-import users from '../model/users';
-import trips from '../model/trip';
-import { findTripById, findUserById } from '../helpers';
-import bookings from '../model/book';
-import DbHelper from "../helpers/DbHelper";
+import {findTripById, findUserById,jwtVerifiy} from '../helpers';
+import bookings  from '../model/book';
+import DbHelper from './../helpers/DbHelper';
 import Respond from '../helpers/responseHandle';
+
 // import uuid from 'uuid';
 
 
@@ -18,51 +17,45 @@ const { response } = Respond;
 class Booking {
   // book a seat
 
-  static bookSeat(req, res) {
+  
     // const getUser = JWT.decode(req.headers.authorization);
 
+static  async bookSeat(req, res) {
 
-    const newBook = {
-      book_id: bookings.length + 1,
-      seat_number: 1,
-      trip_id: req.body.trip_id,
-      user_id: req.body.user_id,
-      created_on: moment().format(),
+const newBook = {
+     seat_number:1,
+    created_on:moment().format(),
+     trip_id:req.body.trip_id,
+     user_id: req.user.user_id,
 
-    };
-    const findTrip = trips.find(t => t.trip_id === parseInt(req.body.trip_id));
 
-    if (findTrip.status === 'unactive') { return res.status(400).send({ status: 400, message: 'this trip was canceled' }); }
+};
+ const { error, response: result } = await DbHelper.queryAll('trips');
+ const { rows: trips } = result;
 
-    bookings.push(newBook);
-    let foundUser = null;
-    let foundTrip = null;
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].user_id === newBook.user_id) {
-        foundUser = users[i];
-      }
-    }
-    for (let i = 0; i < trips.length; i++) {
-      if (trips[i].trip_id === newBook.trip_id) {
-        foundTrip = trips[i];
-      }
-    }
-    // booked response
-    return res.status(201).send({
-      status: 201,
-      message: 'Booking a seat successful ',
-      data: {
-        booking_id: newBook.book_id,
-        seat_number: newBook.seat_number,
-        bus_license_number: foundTrip.bus_license_number,
-        trip_date: foundTrip.trip_date,
-        first_name: foundUser.first_name,
-        last_name: foundUser.last_name,
-        user_email: foundUser.email,
-        created_on: newBook.created_on,
-      },
-    });
-  }
+for (let i =0; i<trips.length;i++){
+  if(trips[i].status==="inactive" )
+     
+    return res.status(409).send({ status: 'success', data: "this trip was canceled" });
+    
+         
+     }
+
+
+
+const { error: errors, response: resp } = await DbHelper.insert('bookings',newBook);
+if (errors) {
+  return response(res, 500, 'Oops! unexpected things happened into server', true);
+}
+const { rows, rowCount } = resp;
+if (rowCount > 0) {
+  const [addedbook] = rows;
+  return response(res, 201, addedbook,);
+}
+return response(res, 400, 'no trip found', true);
+}
+
+
 
 
   // get all booking

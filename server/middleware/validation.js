@@ -8,21 +8,21 @@ import Joi from '@hapi/joi';
   static createTripValidator(req, res, next) {
     const schema = Joi.object().keys({
       seating_capacity: Joi.number()
-        .min(0)
+        .min(20)
         .required(),
       bus_license_number: Joi.string()
         .trim()
-        .min(2)
+        .min(7)
         .max(50)
         .required(),
       origin: Joi.string()
         .trim()
-        .min(2)
+        .min(5)
         .max(50)
         .required(),
       destination: Joi.string()
         .trim()
-        .min(2)
+        .min(5)
         .max(50)
         .required(),
       trip_date: Joi.string()
@@ -30,11 +30,11 @@ import Joi from '@hapi/joi';
         .required(),
       fare: Joi.number()
         
-        .min(2)
+        .min(3)
         .required(),
       status: Joi.string()
        
-        .min(2)
+        .min(5)
         .max(50),
         
     });
@@ -46,11 +46,9 @@ import Joi from '@hapi/joi';
  static bookSeatValidator(req, res, next) {
   const schema = Joi.object().keys({
     trip_id: Joi.number()
-      .min(0)
+      .min(1)
       .required(),
-    user_id: Joi.number()
-      .min(0)
-      .required(),
+
 
 
   });
