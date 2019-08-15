@@ -1,15 +1,15 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
+import { initDB } from '../way_fareDB/dbInit';
 
 
 chai.use(chaiHttp);
 
 chai.should()
 
-
-
 describe('ALL TRIPS /', () => {
+
   it('it should display all trips', done => {
     chai
       .request(app)
@@ -17,7 +17,6 @@ describe('ALL TRIPS /', () => {
       .set('content-type', 'application/json')
       .set('Authorization', `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiI4ZjZhNTNjYi1jY2VlLTQzYjYtYjQzMSIsImVtYWlsIjoibWFsYWxleDQ0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC9ZMHkvOTA1cGNSc1V6N0oxT2U2OC5LZjQ4UVJYcmxRNjh4aGNPWnp5cExpa0h0ZTJCV1Z5IiwiZmlyc3RfbmFtZSI6ImFsZXgiLCJsYXN0X25hbWUiOiJtYXJpbmRhIiwiaXNfYWRtaW4iOnRydWV9LCJpYXQiOjE1NjUyMDk3MTR9.NgQtSDvMOmyMEhx5ybc6t_ZK3u4nO6TJEouigrFZzJo"}`)
       .end((err, res) => {
-        console.log(res);
         res.should.have.status(200);
         res.body.should.have.property('data');
         done();
@@ -25,12 +24,8 @@ describe('ALL TRIPS /', () => {
   });
 
 
-    });
-
-
-
-    describe('TRIPS /', () => {
-        it('it should display all trips', done => {
+   
+        it('it should create trips', done => {
           chai
             .request(app)
             .post('/api/v1/trips')
@@ -45,9 +40,28 @@ describe('ALL TRIPS /', () => {
                 "fare": "5000"
               })
             .end((err, res) => {
-              console.log(res);
               res.should.have.status(201);
-              res.body.should.have.property('data');
+              done();
+            });
+        });
+
+        it('it should create trips', done => {
+          chai
+            .request(app)
+            .post('/api/v1/trips')
+            .set('content-type', 'application/json')
+            .set('Authorization', `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiI4ZjZhNTNjYi1jY2VlLTQzYjYtYjQzMSIsImVtYWlsIjoibWFsYWxleDQ0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC9ZMHkvOTA1cGNSc1V6N0oxT2U2OC5LZjQ4UVJYcmxRNjh4aGNPWnp5cExpa0h0ZTJCV1Z5IiwiZmlyc3RfbmFtZSI6ImFsZXgiLCJsYXN0X25hbWUiOiJtYXJpbmRhIiwiaXNfYWRtaW4iOnRydWV9LCJpYXQiOjE1NjUyMDk3MTR9.NgQtSDvMOmyMEhx5ybc6t_ZK3u4nO6TJEouigrFZzJo"}`)
+            .send({
+                "seating_capacity":"50",
+                "origin": "kigali",
+                "bus_license_number":"RAC7303",
+                "destination": "muhanga",
+                "trip_date": "1/2/2019"
+        
+              })
+            .end((err, res) => {
+               res.should.have.status(400);
+
               done();
             });
         });
@@ -60,13 +74,69 @@ describe('ALL TRIPS /', () => {
             .set('Authorization', `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiI4ZjZhNTNjYi1jY2VlLTQzYjYtYjQzMSIsImVtYWlsIjoibWFsYWxleDQ0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC9ZMHkvOTA1cGNSc1V6N0oxT2U2OC5LZjQ4UVJYcmxRNjh4aGNPWnp5cExpa0h0ZTJCV1Z5IiwiZmlyc3RfbmFtZSI6ImFsZXgiLCJsYXN0X25hbWUiOiJtYXJpbmRhIiwiaXNfYWRtaW4iOnRydWV9LCJpYXQiOjE1NjUyMDk3MTR9.NgQtSDvMOmyMEhx5ybc6t_ZK3u4nO6TJEouigrFZzJo"}`)
             
             .end((err, res) => {
-              res.should.have.status(200);
-              res.body.should.have.property('status').eql(200);
-              res.body.should.have.property('message').eql('success to get specific trip');
+               res.should.have.status(200);
               res.body.should.have.property('data').be.a('object');
               done()
             })
         });
+
+
+
+        it('it should get specific trip ', done => {
+            chai.request(app)
+            .get('/api/v1/trips/500')
+            .set('content-type', 'application/json')
+            .set('Authorization', `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiI4ZjZhNTNjYi1jY2VlLTQzYjYtYjQzMSIsImVtYWlsIjoibWFsYWxleDQ0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC9ZMHkvOTA1cGNSc1V6N0oxT2U2OC5LZjQ4UVJYcmxRNjh4aGNPWnp5cExpa0h0ZTJCV1Z5IiwiZmlyc3RfbmFtZSI6ImFsZXgiLCJsYXN0X25hbWUiOiJtYXJpbmRhIiwiaXNfYWRtaW4iOnRydWV9LCJpYXQiOjE1NjUyMDk3MTR9.NgQtSDvMOmyMEhx5ybc6t_ZK3u4nO6TJEouigrFZzJo"}`)
+            
+            .end((err, res) => {
+               res.should.have.status(404);
+              done()
+            })
+        });
+
+
+
+
+         it('it should cancel trip ', done => {
+        chai.request(app).patch('/api/v1/trips/1/cancel/')
+        .end((err, res) => {
+           res.should.have.status(403);
+       
+          done()
+        })
+    });
+
+             it('it should cancel trip ', done => {
+        chai.request(app).patch('/api/v1/trips/100/cancel/')
+        .end((err, res) => {
+           res.should.have.status(403);
+       
+          done()
+        })
+    });
+
+ 
+
+
+           it('it should active trip ', done => {
+        chai.request(app).patch('/api/v1/trips/2/active/')
+        .end((err, res) => {
+           res.should.have.status(200);
+       
+          done()
+        })
+    });
+
+
+               it('it should active trip ', done => {
+        chai.request(app).patch('/api/v1/trips/100/active/')
+        .end((err, res) => {
+           res.should.have.status(403);
+       
+          done()
+        })
+    });
+
      
       
           });

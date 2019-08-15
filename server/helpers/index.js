@@ -56,7 +56,7 @@ const verifyToken = async (req, res, next) => {
  
    //filter destination
    const findQueryByDestination = (dquery) =>{
-    console.log(dquery);
+    //console.log(dquery);
      const dest = trips.filter(c => c.destination === dquery);
      return dest;
    }
