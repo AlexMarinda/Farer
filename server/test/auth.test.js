@@ -2,15 +2,23 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
 import users from '../model/users';
+import { initDB } from '../way_fareDB/dbInit';
 const should=chai.should();
 chai.use(chaiHttp);
+
+/* eslint-disable */
+
 const [user1]=users;
+describe('Authentications', () => {
+  before(async () => {
+    await initDB();
+  });
 
 describe('signup', () => {
     it('POST /api/v1/auth/signup should create a new account', (done) => {
         const newUser={
             
-            email: 'jules@gmail.com',
+            email: 'marind@gmail.com',
             password: '$1233r4eee',
             first_name: 'malalex',
             last_name: 'alex',
@@ -28,12 +36,19 @@ describe('signup', () => {
               res.body.should.have.property('data').have.property('email').be.eql('jules@gmail.com');
               done();
           })
-
+         .end((err, res) => {
+            res.should.have.status(400);
+          
+            res.body.should.have.property('status').eql(400);
+            res.body.should.have.property(error)
+  
+            done();
+          });
         
     });
   
 
-    it('it should return 400  when user missing some  inputs', done => {
+    it('it should return 500  when user missing some  inputs', done => {
         
         chai.request(app)
           .post('/api/v2/auth/signup')
@@ -43,10 +58,10 @@ describe('signup', () => {
           //"email is required"
           
           .end((err, res) => {
-            res.should.have.status(404);
+            res.should.have.status(400);
           
-            res.body.should.have.property('status').eql(404);
-            res.body.should.have.property('message').eql('URL NOT FOUND!');
+            res.body.should.have.property('status').eql(400);
+            res.body.should.have.property(error)
   
             done();
           });
@@ -64,6 +79,7 @@ describe('signin', () => {
   
             
         };
+
         chai.request(app)
           .post('/api/v1/auth/signin')
 
@@ -107,3 +123,5 @@ describe('signin', () => {
     
     
 });
+});
+
