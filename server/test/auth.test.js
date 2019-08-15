@@ -11,7 +11,7 @@ chai.should();
 describe('POST /', () => {
   it('New user, it should return 201', (done) => {
     const user = {
-      email: 'brand@gmail.com',
+      email: 'brndaa@gmail.com',
       first_name: 'brenda',
       last_name: 'Eric',
       password: '12345678',

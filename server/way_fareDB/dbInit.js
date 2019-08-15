@@ -10,14 +10,10 @@ const { usersTableSeeder, tripsTableSeeder,bookingsTableSeeder } = Seeders;
 // operation
 export const initDB = async () => {
     // start troping tables
-  await query(dropTripsTable);
-  await query(dropUsersTable);
-  await query(dropBookingsTable);
+ 
 
   //  start create tables
-  await query(createTripsTable);
-  await query(createUsersTable);
-  await query(createBookingsTable);
+
   // start seeding
   await usersTableSeeder();
   await tripsTableSeeder();
