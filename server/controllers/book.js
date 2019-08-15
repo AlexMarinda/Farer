@@ -36,7 +36,7 @@ const newBook = {
 for (let i =0; i<trips.length;i++){
   if(trips[i].status==="inactive" )
      
-    return res.status(409).send({ status: 'success', data: "this trip was canceled" });
+    return res.status(409).send({ status: 409, data: "this trip was canceled" });
     
          
      }
