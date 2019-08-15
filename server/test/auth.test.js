@@ -2,20 +2,16 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
 import users from '../model/users';
-import { initDB } from '../way_fareDB/dbInit';
+
 
 const [user1] = users;
-// import users from '../src/models/Models';
-const should = chai.should();
 chai.use(chaiHttp);
 chai.should();
 // test for creating users
 describe('POST /', () => {
-  
-
   it('New user, it should return 201', (done) => {
     const user = {
-      email: 'brenda@gmail.com',
+      email: 'brand@gmail.com',
       first_name: 'brenda',
       last_name: 'Eric',
       password: '12345678',
@@ -107,10 +103,4 @@ describe('POST /', () => {
         done();
       });
   });
-
-
-
-
-
-  
 });
