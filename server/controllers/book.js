@@ -36,7 +36,7 @@ const newBook = {
 for (let i =0; i<trips.length;i++){
   if(trips[i].status==="inactive" )
      
-    return res.status(200).send({ status: 'success', data: "this trip was" });
+    return res.status(409).send({ status: 'success', data: "this trip was canceled" });
     
          
      }
@@ -49,8 +49,8 @@ if (errors) {
 }
 const { rows, rowCount } = resp;
 if (rowCount > 0) {
-  const [addedProperty] = rows;
-  return response(res, 201, addedProperty,);
+  const [addedbook] = rows;
+  return response(res, 201, addedbook,);
 }
 return response(res, 400, 'no trip found', true);
 }

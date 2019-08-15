@@ -32,7 +32,7 @@ for (let i =0; i<trip.length;i++){
   if(trip[i].trip_date===req.body.trip_date && trip[i].origin===req.body.origin
      && trip[i].destination===req.body.destination && trip[i].bus_license_number===req.body.bus_license_number)
      
-    return res.status(400).json({ status: 400, error:"trip must be created" });
+    return res.status(409).json({ status: 409, error:"this trip already created" });
     
          
      }
