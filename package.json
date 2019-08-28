@@ -7,6 +7,7 @@
     "lint": "eslint",
     "prod": "babel-node server/index.js",
     "start": "nodemon server/index.js --exec babel-node",
+    "build": "mkdir dist && babel server -s -d dist",
     "test": "npm run migrate nyc --reporter=html --reporter=text mocha --require babel-register --timeout 100000 server/test/ --exit",
     "coverage": "nyc --reporter=lcov npm run test",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
