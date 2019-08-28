@@ -1,6 +1,6 @@
 # **Way-Farer**
 
-[![Coverage Status](https://coveralls.io/repos/github/AlexMarinda/way-Farer/badge.svg?branch=develop)](https://coveralls.io/github/AlexMarinda/way-Farer?branch=develop) [![Build Status](https://travis-ci.com/AlexMarinda/way-Farer)](https://travis-ci.com/AlexMarinda/way-Farer)
+[![Coverage Status](https://coveralls.io/repos/github/AlexMarinda/way-Farer/badge.svg?branch=develop)](https://coveralls.io/github/AlexMarinda/way-Farer?branch=develop) [![Build Status](https://travis-ci.com/AlexMarinda/way-Farer.svg?branch=develop)](https://travis-ci.com/AlexMarinda/way-Farer)
 
 ## **Project description**
 
